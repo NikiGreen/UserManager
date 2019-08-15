@@ -24,4 +24,63 @@ public class UserAccount {
     private Status userStatus;
 
     private Date createdAt;
+
+    public UserAccount() {
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public String getUserName() {
+        return userName;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public Role getUserRole() {
+        return userRole;
+    }
+
+    public void setUserRole(Role userRole) {
+        this.userRole = userRole;
+    }
+
+    public Status getUserStatus() {
+        return userStatus;
+    }
+
+    public void setUserStatus(Status userStatus) {
+        this.userStatus = userStatus;
+    }
+
+    public Date getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt(Date createdAt) {
+        this.createdAt = createdAt;
+    }
 }
