@@ -65,6 +65,11 @@
         <i>{{password}}</i>
         <i>{{active}}</i>
         <i>{{roles}}</i>
+        <form method="post" action="user/{{id}}">
+            <!--<input type="hidden" name="id" value={{id}}>-->
+            <input type="hidden" name="_csrf" value="{{_csrf.token}}" />
+            <button type="submit">Изменить</button>
+        </form>
     </div>
 {{/users}}
 </div>

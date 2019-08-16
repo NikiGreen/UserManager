@@ -17,6 +17,12 @@
         clear: both;
     }
 </style>
+<div>
+    <form action="/logout" method="post">
+        <input type="hidden" name="_csrf" value="{{_csrf.token}}" />
+        <input type="submit" value="Sign Out"/>
+    </form>
+</div>
 <div id="left">
 <div >Добро пожаловать</div>
 <a href="/user">Перейти к списку пользователей</a>

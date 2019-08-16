@@ -1,0 +1,44 @@
+
+<html>
+
+<body>
+<style>
+    #left {
+        float: left;
+        clear: both;
+    }
+    body {
+        /*background-image:url("background/deadpool.jpg");*/
+        background-color: wheat;
+    }
+    #right{
+        text-align: center;/* Выравниваем по центру */
+        clear: both;
+
+    }
+
+</style>
+<div>
+    <form action="/logout" method="post">
+        <input type="hidden" name="_csrf" value="{{_csrf.token}}" />
+        <input type="submit" value="Sign Out"/>
+    </form>
+</div>
+
+<div id="left">
+    Пользователь:<b>{{username}}</b>
+    <form method="post" action="user/new">
+        <input type="text" name="username"  value={{username}}>
+        <input type="password" name="password" value={{password}}>
+        <input type="checkbox" name="status" checked>
+        <select name="role">
+            <option>ADMIN</option>
+            <option>USER</option>
+        </select>
+        <input type="hidden" name="_csrf" value="{{_csrf.token}}" />
+        <button type="submit">Изменить</button>
+    </form>
+</div>
+
+</body>
+</html>
