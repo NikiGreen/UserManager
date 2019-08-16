@@ -43,8 +43,8 @@ public class RegistrationController {
     public String peoples(User user, Boolean status, @RequestParam String role, Map<String, Object> model) {
 
         User userFromDb = userRepository.findByUsername(user.getUsername());
-        if(status==null)
-            status=false;
+        if (status == null)
+            status = false;
         if (userFromDb == null) {
             user.setActive(status);
             user.setRoles(Collections.singleton(Role.valueOf(role)));

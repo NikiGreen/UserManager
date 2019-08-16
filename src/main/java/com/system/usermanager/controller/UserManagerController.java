@@ -46,21 +46,31 @@ public class UserManagerController {
 
     @PostMapping("/user/{id}")
     public String userId(@PathVariable(value = "id") String id, Map<String, Object> model) {
-       User user = userRepository.findById(Long.valueOf(id)).orElse(new User());
+        User user = userRepository.findById(Long.valueOf(id)).orElse(new User());
 
-            model.put("username", user.getUsername());
-            model.put("password", user.getPassword());
+        model.put("username", user.getUsername());
+        model.put("password", user.getPassword());
 
         return "/profile";
     }
 
-    @GetMapping("/user/{id}/edit")
-    public String edit(@PathVariable("id") String id, Map<String, Object> model) {
+    @PostMapping("/user/{id}/edit")
+    public String edit(User user, Boolean status, @RequestParam String role, @PathVariable("id") String id, Map<String, Object> model) {
+        User userFromDb = userRepository.findByUsername(user.getUsername());
+        if (status == null)
+            status = false;
+        if (userFromDb == null) {
+            user.setActive(status);
+            user.setRoles(Collections.singleton(Role.valueOf(role)));
+            userRepository.save(user);
+        }
+
         Iterable<User> users = userRepository.findAll();
+
 
         model.put("users", users);
 
-        return "/users";
+        return "redirect:/user";
     }
 
     @PostMapping("byname")

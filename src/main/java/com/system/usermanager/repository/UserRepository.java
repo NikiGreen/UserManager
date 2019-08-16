@@ -9,10 +9,14 @@ import java.util.Optional;
 
 public interface UserRepository extends JpaRepository<User, Long> {
     User findByUsername(String username);
+
     Optional<User> findById(Long id);
+
     @Transactional
     void removeAllByUsername(String username);
+
     Iterable<User> findAllByUsername(String username);
-        Iterable<User> findAllById(Long id);
+
+    Iterable<User> findAllById(Long id);
 
 }

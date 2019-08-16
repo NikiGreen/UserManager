@@ -12,7 +12,7 @@ import java.sql.Date;
 @Entity
 public class UserAccount {
     @Id
-    @GeneratedValue(strategy= GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
 
     private String userName;
