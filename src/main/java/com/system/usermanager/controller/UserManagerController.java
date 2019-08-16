@@ -1,6 +1,7 @@
 package com.system.usermanager.controller;
 
 import com.system.usermanager.model.User;
+import com.system.usermanager.model.parametr.Role;
 import com.system.usermanager.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -8,6 +9,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.util.Collections;
 import java.util.Map;
 
 @Controller
@@ -31,8 +33,8 @@ public class UserManagerController {
         return "/login";
     }
 
-    @GetMapping("/students")
-    public String students(Map<String, Object> model) {
+    @GetMapping("/user")
+    public String users(Map<String, Object> model) {
         Iterable<User> users = userRepository.findAll();
 
         model.put("users", users);
@@ -40,107 +42,54 @@ public class UserManagerController {
         return "/users";
     }
 
-   /* @GetMapping("/main")
-    public String main(Map<String, Object> model) {
-        Iterable<Message> messages = messageRepo.findAll();
+    @GetMapping("/user/{id}")
+    public String userId(Map<String, Object> model) {
+        Iterable<User> users = userRepository.findAll();
 
-        model.put("messages", messages);
+        model.put("users", users);
 
-        return "main";
+        return "/users";
     }
 
-    @PostMapping("/main")
-    public String add(@RequestParam String text, @RequestParam String tag, Map<String, Object> model) {
-        Message message = new Message(text, tag);
+    @GetMapping("/user/{id}/edit")
+    public String edit(Map<String, Object> model) {
+        Iterable<User> users = userRepository.findAll();
 
-        messageRepo.save(message);
+        model.put("users", users);
 
-        Iterable<Message> messages = messageRepo.findAll();
-
-        model.put("messages", messages);
-
-        return "main";
-    }
-
-
-    @PostMapping("filter")
-    public String filter(@RequestParam String filter, Map<String, Object> model) {
-        Iterable<Message> messages;
-
-        if (filter != null && !filter.isEmpty()) {
-            messages = messageRepo.findByTag(filter);
-        } else {
-            messages = messageRepo.findAll();
-        }
-
-        model.put("messages", messages);
-
-        return "/main";
-    }
-
-    @PostMapping("text")
-    public String text(@RequestParam String text, Map<String, Object> model) {
-        Iterable<Message> messages;
-
-        if (text != null && !text.isEmpty()) {
-            messages = messageRepo.findByText(text);
-        } else {
-            messages = messageRepo.findAll();
-        }
-
-        model.put("messages", messages);
-
-        return "/main";
-    }
-
-
-    @PostMapping("peoples")
-    public String peoples(@RequestParam String studentName, @RequestParam String studentDiscipline, @RequestParam String studentExam, @RequestParam String studentSpecialty,
-                          @RequestParam String studentExamList, @RequestParam String studentDocument, @RequestParam String studentEducation,
-                          @RequestParam String studentAvarageMark, Map<String, Object> model) {
-
-        tablesControllerImpl.addInTables(studentName, studentDiscipline,studentExam,studentSpecialty, studentExamList,studentDocument,
-                studentEducation, studentAvarageMark);
-
-        Student student=new Student(studentName,studentDiscipline,studentExam,studentSpecialty,studentExamList,studentDocument,studentEducation,studentAvarageMark);
-
-        studentRepository.save(student);
-
-        Iterable<Student> students = studentRepository.findAll();
-
-
-        model.put("students", students);
-
-        return "redirect:/students";
+        return "/users";
     }
 
     @PostMapping("byname")
     public String byname(@RequestParam String name, Map<String, Object> model) {
-        Iterable<Student> students;
+        Iterable<User> users;
 
         if (name != null && !name.isEmpty()) {
-            students = studentRepository.findByStudentNameOrderByStudentName(name);
+            users = userRepository.findAllByUsername(name);
         } else {
-            students = studentRepository.findAll();
+            users = userRepository.findAll();
+            model.put("message", "User exists!");
+            model.put("users", users);
+            return "/users";
         }
 
-        model.put("students", students);
+        model.put("users", users);
 
-        return "/students";
+        return "/users";
     }
 
     @PostMapping("delete")
     public String delete(@RequestParam String name, Map<String, Object> model) {
-        Iterable<Student> students;
+        Iterable<User> users;
 
         if (name != null && !name.isEmpty())
-            studentRepository.removeAllByStudentName(name);
+            userRepository.removeAllByUsername(name);
 
-        students = studentRepository.findAll();
+        users = userRepository.findAll();
 
 
-        model.put("students", students);
+        model.put("users", users);
 
-        return "redirect:/students";
-    }*/
+        return "redirect:/user";
+    }
 }

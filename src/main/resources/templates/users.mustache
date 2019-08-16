@@ -27,32 +27,38 @@
         <input type="submit" value="Sign Out"/>
     </form>
 </div>
+
 <div id="left">
-    <form method="post" action="peoples">
-        <input type="text" name="studentName" placeholder="ФИО" />
-        <input type="text" name="studentDiscipline" placeholder="Дисциплина сдачи">
-        <input type="text" name="studentExam" placeholder="Отметка за экзамен">
-        <input type="text" name="studentSpecialty" placeholder="Специальность">
-        <input type="text" name="studentExamList" placeholder="Экзаменационный лист">
-        <input type="text" name="studentDocument" placeholder="Потдверждающий документ">
-        <input type="text" name="studentEducation" placeholder="Образование">
-        <input type="text" name="studentAvarageMark" placeholder="Средняя отметка">
+   {{#message}}
+        {{message}}
+    {{/message}}
+    <form method="post" action="user/new">
+        <input type="text" name="username" placeholder="username" />
+        <input type="password" name="password" placeholder="password">
+        <input type="checkbox" name="status" checked>
+        <select name="role">
+            <option>ADMIN</option>
+            <option>USER</option>
+        </select>
         <input type="hidden" name="_csrf" value="{{_csrf.token}}" />
         <button type="submit">Добавить</button>
     </form>
 </div>
+
 <form method="post" action="byname">
     <input type="text" name="name" placeholder="Имя для поиска">
     <input type="hidden" name="_csrf" value="{{_csrf.token}}" />
     <button type="submit">Найти</button>
 </form>
+
 <form method="post" action="delete">
     <input type="text" name="name" placeholder="Имя для удаления">
     <input type="hidden" name="_csrf" value="{{_csrf.token}}" />
     <button type="submit">Удалить</button>
 </form>
+
 <div id="right" style="position: center">
-<div>Список студентов</div>
+<div>Список пользователей</div>
 {{#users}}
     <div >
         <span>{{username}}</span>
