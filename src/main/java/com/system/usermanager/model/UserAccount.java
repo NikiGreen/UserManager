@@ -1,7 +1,7 @@
 package com.system.usermanager.model;
 
-import com.system.usermanager.parametrs.Role;
-import com.system.usermanager.parametrs.Status;
+import com.system.usermanager.model.parametr.Role;
+import com.system.usermanager.model.parametr.Status;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;

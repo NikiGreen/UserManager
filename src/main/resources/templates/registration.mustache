@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Spring Security Example </title>
+</head>
+<body>
+<style>
+    div{
+        position: center;
+    }
+    body{
+        background: greenyellow;
+    }
+    DIV.container {
+        min-height: 10em;
+        display: table-cell;
+        vertical-align: middle;
+        position: center;background: wheat;
+    }
+    a{
+        position: center;background: wheat;
+    }
+    #left {
+         text-align: center;/* Выравниваем по центру */
+         clear: both;
+     }
+</style>
+<div id="left">
+Добавление нового пользователя
+{{#message}}
+    {{message}}
+{{/message}}
+<form action="/registration" method="post" style="position: center">
+    <div><label> Логин : <input type="text" name="username"/> </label></div>
+    <div><label> Пароль: <input type="password" name="password"/> </label></div>
+    <input type="hidden" name="_csrf" value="{{_csrf.token}}" />
+    <div><input type="submit" value="Зарегестрировать"/></div>
+</form>
+</div>
+</body>
+</html>
