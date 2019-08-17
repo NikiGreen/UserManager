@@ -1,0 +1,14 @@
+body{
+    background-image: url("/background/deadpool.jpg");
+}
+
+input[type=submit],button {
+    color: white;
+    padding:5px 15px;
+   /* background:#ccc;*/
+    background: black;
+    border:0 none;
+    cursor:pointer;
+    -webkit-border-radius: 5px;
+    border-radius: 5px;
+}
