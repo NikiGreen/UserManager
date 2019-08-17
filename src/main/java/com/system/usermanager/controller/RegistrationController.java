@@ -6,6 +6,7 @@ import com.system.usermanager.model.parametr.Role;
 import com.system.usermanager.model.parametr.Status;
 import com.system.usermanager.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -20,6 +21,8 @@ import java.util.Map;
 public class RegistrationController {
     @Autowired
     private UserRepository userRepository;
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
     @GetMapping("/registration")
     public String registration() {
@@ -27,17 +30,20 @@ public class RegistrationController {
     }
 
     @PostMapping("/registration")
-    public String addUser(User user, Map<String, Object> model) {
+    public String addUser(User user, String firstName, String lastName, Map<String, Object> model) {
         User userFromDb = userRepository.findByUsername(user.getUsername());
 
         if (userFromDb != null) {
             model.put("message", "User exists!");
             return "registration";
         }
-
+        user.setFirstName(firstName);
+        user.setLastName(lastName);
         /*user.setActive(Collections.singleton(Status.ACTIVE));*/
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
         user.setActive(true);
         user.setRoles(Collections.singleton(Role.USER));
+        user.setCreatedAt(new SimpleDateFormat("HH:mm:ss_dd.MM.yyyy").format(Calendar.getInstance().getTime()));
         userRepository.save(user);
 
         return "redirect:/login";
@@ -55,6 +61,7 @@ public class RegistrationController {
                 user.setActive(true);
             }else
                 user.setActive(false);
+            user.setPassword(passwordEncoder.encode(user.getPassword()));
             user.setRoles(Collections.singleton(Role.valueOf(role)));
             user.setCreatedAt(new SimpleDateFormat("HH:mm:ss_dd.MM.yyyy").format(Calendar.getInstance().getTime()));
             userRepository.save(user);

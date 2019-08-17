@@ -2,6 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
     <title>Spring Security Example </title>
+
 </head>
 <body>
 <style>
@@ -18,12 +19,12 @@
         display: table-cell;
         vertical-align: middle;
         position: center;
-        background: wheat;
+       /* background: wheat;*/
     }
 
     a {
         position: center;
-        background: wheat;
+        /*background: wheat;*/
     }
 
     #left {
@@ -39,6 +40,8 @@
     <form action="/registration" method="post" style="position: center">
         <div><label> Логин : <input type="text" name="username"/> </label></div>
         <div><label> Пароль: <input type="password" name="password"/> </label></div>
+        <input type="text" name="firstName" placeholder="firstname">
+        <input type="text" name="lastName" placeholder="lastname">
         <input type="hidden" name="_csrf" value="{{_csrf.token}}"/>
         <div><input type="submit" value="Зарегестрировать"/></div>
     </form>

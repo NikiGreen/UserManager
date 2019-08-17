@@ -5,6 +5,7 @@ import com.system.usermanager.model.parametr.Role;
 import com.system.usermanager.model.parametr.Status;
 import com.system.usermanager.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -20,6 +21,9 @@ public class UserManagerController {
 
     @Autowired
     private UserRepository userRepository;
+    @Autowired
+    private PasswordEncoder passwordEncoder;
+
 
     @GetMapping("/")
     public String greeting(Map<String, Object> model
@@ -46,7 +50,17 @@ public class UserManagerController {
     }
 
     @PostMapping("/user/{id}")
-    public String userId(@PathVariable(value = "id") String id, Map<String, Object> model) {
+    public String info(@PathVariable(value = "id") String id, Map<String, Object> model) {
+        User user = userRepository.findById(Long.valueOf(id)).orElse(new User());
+        model.put("username", user.getUsername());
+        model.put("firstName", user.getFirstName());
+        model.put("lastName", user.getLastName());
+        model.put("createdAt", user.getCreatedAt());
+
+        return "/profileInfo";
+    }
+    @GetMapping("/user/{id}/edit")
+    public String getUserInfo(@PathVariable(value = "id") String id, Map<String, Object> model) {
         User user = userRepository.findById(Long.valueOf(id)).orElse(new User());
         model.put("username", user.getUsername());
         model.put("password", user.getPassword());
@@ -66,6 +80,7 @@ public class UserManagerController {
                 user.setActive(true);
             }else
                 user.setActive(false);
+            user.setPassword(passwordEncoder.encode(user.getPassword()));
             user.setRoles(Collections.singleton(Role.valueOf(role)));
             user.setCreatedAt(createdAt);
             userRepository.save(user);
@@ -87,7 +102,23 @@ public class UserManagerController {
             users = userRepository.findAllByUsername(name);
         } else {
             users = userRepository.findAll();
-            model.put("message", "User exists!");
+            model.put("users", users);
+            return "/users";
+        }
+
+        model.put("users", users);
+
+        return "/users";
+    }
+
+    @PostMapping("byrole")
+    public String byrole(@RequestParam String role, Map<String, Object> model) {
+        Iterable<User> users;
+
+        if (role != null && !role.isEmpty()) {
+            users = userRepository.findAllByRoles(Collections.singleton(Role.valueOf(role)));
+        } else {
+            users = userRepository.findAll();
             model.put("users", users);
             return "/users";
         }

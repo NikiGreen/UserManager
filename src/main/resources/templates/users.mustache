@@ -1,5 +1,7 @@
 <html>
+<head>
 
+</head>
 <body>
 <style>
     form {
@@ -58,6 +60,15 @@
     <button type="submit">Найти</button>
 </form>
 
+<form method="post" action="byrole">
+    <select name="role">
+        <option>ADMIN</option>
+        <option>USER</option>
+    </select>
+    <input type="hidden" name="_csrf" value="{{_csrf.token}}"/>
+    <button type="submit">Найти</button>
+</form>
+
 <form method="post" action="delete">
     <input type="text" name="name" placeholder="Имя для удаления">
     <input type="hidden" name="_csrf" value="{{_csrf.token}}"/>
@@ -65,17 +76,19 @@
 </form>
 
 <div id="right" style="position: center">
-    <div>Список пользователей</div>
+    <div style="border: black">Список пользователей:</div>
     {{#users}}
         <div>
             <span>{{username}}</span>
-            <i>{{password}}</i>
-            <i>{{firstName}}</i>
-            <i>{{lastName}}</i>
             <i>{{active}}</i>
             <i>{{roles}}</i>
             <i>{{createdAt}}</i>
             <form method="post" action="user/{{id}}">
+                <!--<input type="hidden" name="id" value={{id}}>-->
+                <input type="hidden" name="_csrf" value="{{_csrf.token}}"/>
+                <button type="submit">Просмотр</button>
+            </form>
+            <form method="get" action="user/{{id}}/edit">
                 <!--<input type="hidden" name="id" value={{id}}>-->
                 <input type="hidden" name="_csrf" value="{{_csrf.token}}"/>
                 <button type="submit">Изменить</button>
