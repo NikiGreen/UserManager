@@ -58,11 +58,16 @@ public class UserManagerController {
     }
 
     @PostMapping("/user/{id}/edit")
-    public String edit(User user, @RequestParam String status, @RequestParam String role, @PathVariable("id") String id, Map<String, Object> model) {
+    public String edit(User user,@RequestParam String createdAt, @RequestParam String status, @RequestParam String role, @PathVariable("id") String id, Map<String, Object> model) {
         User userFromDb = userRepository.findByUsername(user.getUsername());
         if (userFromDb == null) {
-            user.setActive(Collections.singleton(Status.valueOf(status)));
+            /*user.setActive(Collections.singleton(Status.valueOf(status)));*/
+            if(status.equals("ACTIVE")){
+                user.setActive(true);
+            }else
+                user.setActive(false);
             user.setRoles(Collections.singleton(Role.valueOf(role)));
+            user.setCreatedAt(createdAt);
             userRepository.save(user);
         }
 
@@ -96,7 +101,7 @@ public class UserManagerController {
     public String delete(@RequestParam String name, Map<String, Object> model) {
         Iterable<User> users;
 
-        if (name != null && !name.isEmpty())
+       if (name != null && !name.isEmpty())
             userRepository.removeAllByUsername(name);
 
         users = userRepository.findAll();

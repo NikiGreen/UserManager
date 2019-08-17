@@ -35,7 +35,8 @@ public class RegistrationController {
             return "registration";
         }
 
-        user.setActive(Collections.singleton(Status.ACTIVE));
+        /*user.setActive(Collections.singleton(Status.ACTIVE));*/
+        user.setActive(true);
         user.setRoles(Collections.singleton(Role.USER));
         userRepository.save(user);
 
@@ -49,7 +50,11 @@ public class RegistrationController {
         if (userFromDb == null) {
             user.setFirstName(firstName);
             user.setLastName(lastName);
-            user.setActive(Collections.singleton(Status.valueOf(status)));
+            /*user.setActive(Collections.singleton(Status.valueOf(status)));*/
+            if(status.equals("ACTIVE")){
+                user.setActive(true);
+            }else
+                user.setActive(false);
             user.setRoles(Collections.singleton(Role.valueOf(role)));
             user.setCreatedAt(new SimpleDateFormat("HH:mm:ss_dd.MM.yyyy").format(Calendar.getInstance().getTime()));
             userRepository.save(user);

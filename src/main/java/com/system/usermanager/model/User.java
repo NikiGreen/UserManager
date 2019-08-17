@@ -1,7 +1,6 @@
 package com.system.usermanager.model;
 
 import com.system.usermanager.model.parametr.Role;
-import com.system.usermanager.model.parametr.Status;
 
 import javax.persistence.*;
 import java.util.Set;
@@ -18,10 +17,12 @@ public class User {
     private String firstName;
     private String lastName;
 
-    @ElementCollection(targetClass = Status.class, fetch = FetchType.EAGER)
+    /*@ElementCollection(targetClass = Status.class, fetch = FetchType.EAGER)
     @CollectionTable(name = "user_status", joinColumns = @JoinColumn(name = "user_id"))
     @Enumerated(EnumType.STRING)
-    private Set<Status> active;
+    private Set<Status> active;*/
+
+    private Boolean active;
 
     @ElementCollection(targetClass = Role.class, fetch = FetchType.EAGER)
     @CollectionTable(name = "user_role", joinColumns = @JoinColumn(name = "user_id"))
@@ -72,12 +73,20 @@ public class User {
     public void setLastName(String lastName) {
         this.lastName = lastName;
     }
-
+/*
     public Set<Status> getActive() {
         return active;
     }
 
     public void setActive(Set<Status> active) {
+        this.active = active;
+    }*/
+
+    public Boolean getActive() {
+        return active;
+    }
+
+    public void setActive(Boolean active) {
         this.active = active;
     }
 
