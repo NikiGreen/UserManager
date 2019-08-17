@@ -3,6 +3,7 @@ package com.system.usermanager.controller;
 
 import com.system.usermanager.model.User;
 import com.system.usermanager.model.parametr.Role;
+import com.system.usermanager.model.parametr.Status;
 import com.system.usermanager.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -10,6 +11,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Collections;
 import java.util.Map;
 
@@ -32,7 +35,7 @@ public class RegistrationController {
             return "registration";
         }
 
-        user.setActive(true);
+        user.setActive(Collections.singleton(Status.ACTIVE));
         user.setRoles(Collections.singleton(Role.USER));
         userRepository.save(user);
 
@@ -40,14 +43,15 @@ public class RegistrationController {
     }
 
     @PostMapping("/user/new")
-    public String peoples(User user, Boolean status, @RequestParam String role, Map<String, Object> model) {
+    public String peoples(User user, String firstName, String lastName, @RequestParam String status, @RequestParam String role, Map<String, Object> model) {
 
         User userFromDb = userRepository.findByUsername(user.getUsername());
-        if (status == null)
-            status = false;
         if (userFromDb == null) {
-            user.setActive(status);
+            user.setFirstName(firstName);
+            user.setLastName(lastName);
+            user.setActive(Collections.singleton(Status.valueOf(status)));
             user.setRoles(Collections.singleton(Role.valueOf(role)));
+            user.setCreatedAt(new SimpleDateFormat("HH:mm:ss_dd.MM.yyyy").format(Calendar.getInstance().getTime()));
             userRepository.save(user);
         }
 

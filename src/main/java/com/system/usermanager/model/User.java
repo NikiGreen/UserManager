@@ -14,12 +14,24 @@ public class User {
     private Long id;
     private String username;
     private String password;
-    private boolean active;
+
+    private String firstName;
+    private String lastName;
+
+    @ElementCollection(targetClass = Status.class, fetch = FetchType.EAGER)
+    @CollectionTable(name = "user_status", joinColumns = @JoinColumn(name = "user_id"))
+    @Enumerated(EnumType.STRING)
+    private Set<Status> active;
 
     @ElementCollection(targetClass = Role.class, fetch = FetchType.EAGER)
     @CollectionTable(name = "user_role", joinColumns = @JoinColumn(name = "user_id"))
     @Enumerated(EnumType.STRING)
     private Set<Role> roles;
+
+    private String createdAt;
+
+    public User() {
+    }
 
     public Long getId() {
         return id;
@@ -45,11 +57,27 @@ public class User {
         this.password = password;
     }
 
-    public boolean isActive() {
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+
+    public Set<Status> getActive() {
         return active;
     }
 
-    public void setActive(boolean active) {
+    public void setActive(Set<Status> active) {
         this.active = active;
     }
 
@@ -59,5 +87,13 @@ public class User {
 
     public void setRoles(Set<Role> roles) {
         this.roles = roles;
+    }
+
+    public String getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt(String createdAt) {
+        this.createdAt = createdAt;
     }
 }

@@ -1,4 +1,3 @@
-
 <html>
 
 <body>
@@ -7,12 +6,14 @@
         float: left;
         clear: both;
     }
+
     body {
         /*background-image:url("background/deadpool.jpg");*/
         background-color: wheat;
     }
-    #right{
-        text-align: center;/* Выравниваем по центру */
+
+    #right {
+        text-align: center; /* Выравниваем по центру */
         clear: both;
 
     }
@@ -20,7 +21,7 @@
 </style>
 <div>
     <form action="/logout" method="post">
-        <input type="hidden" name="_csrf" value="{{_csrf.token}}" />
+        <input type="hidden" name="_csrf" value="{{_csrf.token}}"/>
         <input type="submit" value="Sign Out"/>
     </form>
 </div>
@@ -28,14 +29,20 @@
 <div id="left">
     Пользователь:<b>{{username}}</b>
     <form method="post" action="/user/{{id}}/edit">
-        <input type="text" name="username"  value={{username}}>
+        <input type="text" name="username" value={{username}}>
         <input type="password" name="password" value={{password}}>
-        <input type="checkbox" name="status" checked>
+        <input type="text" name="firstName" value={{firstName}}>
+        <input type="text" name="lastName" value={{lastName}}>
+        <input type="text" name="createdAt" value={{createdAt}}>
+        <select name="status">
+            <option>ACTIVE</option>
+            <option>INACTIVE</option>
+        </select>
         <select name="role">
             <option>ADMIN</option>
             <option>USER</option>
         </select>
-        <input type="hidden" name="_csrf" value="{{_csrf.token}}" />
+        <input type="hidden" name="_csrf" value="{{_csrf.token}}"/>
         <button type="submit">Изменить</button>
     </form>
 </div>

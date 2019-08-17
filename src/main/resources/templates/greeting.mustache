@@ -2,30 +2,32 @@
 <html>
 <head>
     <title>Getting Started: Serving Web Content</title>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
 </head>
 <body>
 <style>
-    div{
+    div {
         position: center;
     }
-    body{
+
+    body {
         background: wheat;
     }
+
     #left {
-        text-align: center;/* Выравниваем по центру */
+        text-align: center; /* Выравниваем по центру */
         clear: both;
     }
 </style>
 <div>
     <form action="/logout" method="post">
-        <input type="hidden" name="_csrf" value="{{_csrf.token}}" />
+        <input type="hidden" name="_csrf" value="{{_csrf.token}}"/>
         <input type="submit" value="Sign Out"/>
     </form>
 </div>
 <div id="left">
-<div >Добро пожаловать</div>
-<a href="/user">Перейти к списку пользователей</a>
+    <div>Добро пожаловать</div>
+    <a href="/user">Перейти к списку пользователей</a>
 </div>
 </body>
 </html>

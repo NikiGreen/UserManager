@@ -2,6 +2,7 @@ package com.system.usermanager.controller;
 
 import com.system.usermanager.model.User;
 import com.system.usermanager.model.parametr.Role;
+import com.system.usermanager.model.parametr.Status;
 import com.system.usermanager.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -47,20 +48,20 @@ public class UserManagerController {
     @PostMapping("/user/{id}")
     public String userId(@PathVariable(value = "id") String id, Map<String, Object> model) {
         User user = userRepository.findById(Long.valueOf(id)).orElse(new User());
-
         model.put("username", user.getUsername());
         model.put("password", user.getPassword());
+        model.put("firstName", user.getFirstName());
+        model.put("lastName", user.getLastName());
+        model.put("createdAt", user.getCreatedAt());
 
         return "/profile";
     }
 
     @PostMapping("/user/{id}/edit")
-    public String edit(User user, Boolean status, @RequestParam String role, @PathVariable("id") String id, Map<String, Object> model) {
+    public String edit(User user, @RequestParam String status, @RequestParam String role, @PathVariable("id") String id, Map<String, Object> model) {
         User userFromDb = userRepository.findByUsername(user.getUsername());
-        if (status == null)
-            status = false;
         if (userFromDb == null) {
-            user.setActive(status);
+            user.setActive(Collections.singleton(Status.valueOf(status)));
             user.setRoles(Collections.singleton(Role.valueOf(role)));
             userRepository.save(user);
         }

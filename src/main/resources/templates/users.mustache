@@ -1,4 +1,3 @@
-
 <html>
 
 <body>
@@ -6,16 +5,19 @@
     form {
         overflow: hidden;
     }
+
     #left {
         float: right;
         clear: both;
     }
+
     body {
-        /*background-image:url("background/deadpool.jpg");*/
+        /* background-image:url("background/deadpool.jpg");*/
         background-color: wheat;
     }
-    #right{
-        text-align: center;/* Выравниваем по центру */
+
+    #right {
+        text-align: center; /* Выравниваем по центру */
         clear: both;
 
     }
@@ -23,55 +25,63 @@
 </style>
 <div>
     <form action="/logout" method="post">
-        <input type="hidden" name="_csrf" value="{{_csrf.token}}" />
+        <input type="hidden" name="_csrf" value="{{_csrf.token}}"/>
         <input type="submit" value="Sign Out"/>
     </form>
 </div>
 
 <div id="left">
-   {{#message}}
+    {{#message}}
         {{message}}
     {{/message}}
     <form method="post" action="user/new">
-        <input type="text" name="username" placeholder="username" />
+        <input type="text" name="username" placeholder="username"/>
         <input type="password" name="password" placeholder="password">
-        <input type="checkbox" name="status" checked>
+        <input type="text" name="firstName" placeholder="firstname">
+        <input type="text" name="lastName" placeholder="lastname">
+        <select name="status">
+            <option>ACTIVE</option>
+            <option>INACTIVE</option>
+        </select>
         <select name="role">
             <option>ADMIN</option>
             <option>USER</option>
         </select>
-        <input type="hidden" name="_csrf" value="{{_csrf.token}}" />
+        <input type="hidden" name="_csrf" value="{{_csrf.token}}"/>
         <button type="submit">Добавить</button>
     </form>
 </div>
 
 <form method="post" action="byname">
     <input type="text" name="name" placeholder="Имя для поиска">
-    <input type="hidden" name="_csrf" value="{{_csrf.token}}" />
+    <input type="hidden" name="_csrf" value="{{_csrf.token}}"/>
     <button type="submit">Найти</button>
 </form>
 
 <form method="post" action="delete">
     <input type="text" name="name" placeholder="Имя для удаления">
-    <input type="hidden" name="_csrf" value="{{_csrf.token}}" />
+    <input type="hidden" name="_csrf" value="{{_csrf.token}}"/>
     <button type="submit">Удалить</button>
 </form>
 
 <div id="right" style="position: center">
-<div>Список пользователей</div>
-{{#users}}
-    <div >
-        <span>{{username}}</span>
-        <i>{{password}}</i>
-        <i>{{active}}</i>
-        <i>{{roles}}</i>
-        <form method="post" action="user/{{id}}">
-            <!--<input type="hidden" name="id" value={{id}}>-->
-            <input type="hidden" name="_csrf" value="{{_csrf.token}}" />
-            <button type="submit">Изменить</button>
-        </form>
-    </div>
-{{/users}}
+    <div>Список пользователей</div>
+    {{#users}}
+        <div>
+            <span>{{username}}</span>
+            <i>{{password}}</i>
+            <i>{{firstName}}</i>
+            <i>{{lastName}}</i>
+            <i>{{active}}</i>
+            <i>{{roles}}</i>
+            <i>{{createdAt}}</i>
+            <form method="post" action="user/{{id}}">
+                <!--<input type="hidden" name="id" value={{id}}>-->
+                <input type="hidden" name="_csrf" value="{{_csrf.token}}"/>
+                <button type="submit">Изменить</button>
+            </form>
+        </div>
+    {{/users}}
 </div>
 
 </body>
