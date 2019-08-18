@@ -10,21 +10,15 @@
         position: center;
     }
 
-    /*body {
-        background: wheat;
-    }*/
-
     DIV.container {
         min-height: 10em;
         display: table-cell;
         vertical-align: middle;
         position: center;
-        /* background: wheat;*/
     }
 
     a {
         position: center;
-        /*background: wheat;*/
     }
 
     #left {
@@ -32,18 +26,17 @@
         clear: both;
     }
 </style>
+<a href="/login">Вернуться на страницу входа</a>
 <div id="left">
     Добавление нового пользователя
-    {{#message}}
-        {{message}}
-    {{/message}}
+    ${message?ifExists}
     <form action="/registration" method="post" style="position: center">
         <div><label> Логин : <input type="text" name="username"/> </label></div>
         <div><label> Пароль: <input type="password" name="password"/> </label></div>
         <div><label> Имя : <input type="text" name="firstName"/> </label></div>
         <div><label> Фамилия:<input type="text" name="lastName"/> </label></div>
 
-        <input type="hidden" name="_csrf" value="{{_csrf.token}}"/>
+        <input type="hidden" name="_csrf" value="${_csrf.token}"/>
         <div><input type="submit" value="Зарегестрировать"/></div>
     </form>
 </div>

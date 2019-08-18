@@ -4,9 +4,12 @@ import com.system.usermanager.model.User;
 import com.system.usermanager.model.parametr.Role;
 import com.system.usermanager.model.parametr.Status;
 import com.system.usermanager.repository.UserRepository;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -41,11 +44,12 @@ public class UserManagerController {
     }
 
     @GetMapping("/user")
-    public String users(Map<String, Object> model) {
+    public String users(Model model, Authentication authentication) {
         Iterable<User> users = userRepository.findAll();
+        String sessionRole= String.valueOf(authentication.getAuthorities());
 
-        model.put("users", users);
-
+        model.addAttribute("users", users);
+        model.addAttribute("sessionRole",sessionRole);
         return "/users";
     }
 
@@ -73,18 +77,18 @@ public class UserManagerController {
 
     @PostMapping("/user/{id}/edit")
     public String edit(User user,@RequestParam String createdAt, @RequestParam String status, @RequestParam String role, @PathVariable("id") String id, Map<String, Object> model) {
-        User userFromDb = userRepository.findByUsername(user.getUsername());
-        if (userFromDb == null) {
+        /*userRepository.deleteById(user.getId());*/
             /*user.setActive(Collections.singleton(Status.valueOf(status)));*/
             if(status.equals("ACTIVE")){
                 user.setActive(true);
             }else
                 user.setActive(false);
-            user.setPassword(passwordEncoder.encode(user.getPassword()));
-            user.setRoles(Collections.singleton(Role.valueOf(role)));
-            user.setCreatedAt(createdAt);
+
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
+        user.setRoles(Collections.singleton(Role.valueOf(role)));
+        user.setCreatedAt(createdAt);
             userRepository.save(user);
-        }
+
 
         Iterable<User> users = userRepository.findAll();
 

@@ -13,10 +13,6 @@
         position: center;
     }
 
-    /*body {
-        background: wheat;
-    }*/
-
     #left {
         text-align: center; /* Выравниваем по центру */
         clear: both;
@@ -28,7 +24,7 @@
         Вход
         <div><label> Логин : <input type="text" name="username"/> </label></div>
         <div><label> Пароль: <input type="password" name="password"/> </label></div>
-        <input type="hidden" name="_csrf" value="{{_csrf.token}}"/>
+        <input type="hidden" name="_csrf" value="${_csrf.token}"/>
         <div><input type="submit" value="Войти"/></div>
         <a href="/registration">Добавить нового пользователя</a>
     </form>

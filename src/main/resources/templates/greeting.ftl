@@ -1,4 +1,4 @@
-<!DOCTYPE HTML>
+<#import "parts/common.ftl" as l>
 <html>
 <head>
     <title>Getting Started: Serving Web Content</title>
@@ -11,22 +11,12 @@
         position: center;
     }
 
-    /*body {
-        background: wheat;
-    }*/
-
     #left {
         text-align: center; /* Выравниваем по центру */
-        /*
-                clear: both;
-        */
     }
 </style>
 <div>
-    <form action="/logout" method="post">
-        <input type="hidden" name="_csrf" value="{{_csrf.token}}"/>
-        <input type="submit" value="Sign Out"/>
-    </form>
+   <@l.logout/>
 </div>
 <div id="left">
     <div>Добро пожаловать</div>
