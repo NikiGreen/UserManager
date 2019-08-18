@@ -6,6 +6,12 @@ import com.system.usermanager.model.parametr.Status;
 import com.system.usermanager.repository.UserRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
+
+import org.springframework.data.domain.Sort;
+
 import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
@@ -14,6 +20,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+
 
 import java.util.Collections;
 import java.util.Map;
@@ -44,11 +51,14 @@ public class UserManagerController {
     }
 
     @GetMapping("/user")
-    public String users(Model model, Authentication authentication) {
-        Iterable<User> users = userRepository.findAll();
+    public String users(Model model, Authentication authentication,
+                        @PageableDefault(sort = {"id"},direction = Sort.Direction.DESC) Pageable pageable) {
+
+        Page<User> page = userRepository.findAll(pageable);
         String sessionRole= String.valueOf(authentication.getAuthorities());
 
-        model.addAttribute("users", users);
+        model.addAttribute("page", page);
+        model.addAttribute("url", "/user");
         model.addAttribute("sessionRole",sessionRole);
         return "/users";
     }
@@ -99,35 +109,37 @@ public class UserManagerController {
     }
 
     @PostMapping("byname")
-    public String byname(@RequestParam String name, Map<String, Object> model) {
-        Iterable<User> users;
+    public String byname(@RequestParam String name, Map<String, Object> model,
+                         @PageableDefault(sort = {"id"},direction = Sort.Direction.DESC) Pageable pageable) {
+        Page<User> pages;
 
         if (name != null && !name.isEmpty()) {
-            users = userRepository.findAllByUsername(name);
+            pages = userRepository.findAllByUsername(name,pageable);
         } else {
-            users = userRepository.findAll();
-            model.put("users", users);
+            pages = userRepository.findAll(pageable);
+            model.put("pages", pages);
             return "/users";
         }
 
-        model.put("users", users);
+        model.put("pages", pages);
 
         return "/users";
     }
 
     @PostMapping("byrole")
-    public String byrole(@RequestParam String role, Map<String, Object> model) {
-        Iterable<User> users;
+    public String byrole(@RequestParam String role, Map<String, Object> model,
+                         @PageableDefault(sort = {"id"},direction = Sort.Direction.DESC) Pageable pageable) {
+        Page<User> pages;
 
         if (role != null && !role.isEmpty()) {
-            users = userRepository.findAllByRoles(Collections.singleton(Role.valueOf(role)));
+            pages = userRepository.findAllByRoles(Collections.singleton(Role.valueOf(role)),pageable);
         } else {
-            users = userRepository.findAll();
-            model.put("users", users);
+            pages = userRepository.findAll(pageable);
+            model.put("pages", pages);
             return "/users";
         }
 
-        model.put("users", users);
+        model.put("pages", pages);
 
         return "/users";
     }

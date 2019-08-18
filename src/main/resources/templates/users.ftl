@@ -1,9 +1,12 @@
 <#import "parts/common.ftl" as l>
+<#import "parts/pager.ftl" as p>
+
 <html>
 <head>
     <link href="/styles/style.css" rel="stylesheet">
 </head>
 <body>
+
 <style>
     form {
         overflow: hidden;
@@ -70,17 +73,22 @@
 </form>
 </#if>
 
+<#--
+<@p.pager url page/>
+-->
 <div id="right" style="position: center">
     <div style="border: black">Список пользователей:</div>
 
-    <#list users as user>
+
+    <div class="card-columns" id="message-list">
+    <#list page.content as user>
         <div>
             <span>${user.username}</span>
             <i>${user.active?string('[ACTIVE]', '[INACTIVE]')}</i>
             <i><#list user.roles as role>${role}<#sep>, </#list></i>
             <i>${user.createdAt}</i>
             <form method="post" action="user/${user.id}">
-                <!--<input type="hidden" name="id" value={{id}}>-->
+               <#-- <input type="hidden" name="id" value={{id}}>-->
                 <input type="hidden" name="_csrf" value="${_csrf.token}"/>
                 <button type="submit">Просмотр</button>
             </form>
@@ -95,7 +103,10 @@
         <#else>
         No results
     </#list>
+    </div>
+
 </div>
+<@p.pager url page/>
 
 </body>
 </html>

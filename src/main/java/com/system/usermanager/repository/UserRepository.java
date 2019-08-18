@@ -3,6 +3,8 @@ package com.system.usermanager.repository;
 
 import com.system.usermanager.model.User;
 import com.system.usermanager.model.parametr.Role;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import javax.transaction.Transactional;
@@ -10,6 +12,9 @@ import java.util.Optional;
 import java.util.Set;
 
 public interface UserRepository extends JpaRepository<User, Long> {
+
+    Page<User> findAll(Pageable pageable);
+
     User findByUsername(String username);
 
     Optional<User> findById(Long id);
@@ -17,11 +22,11 @@ public interface UserRepository extends JpaRepository<User, Long> {
     @Transactional
     void removeAllByUsername(String username);
 
-    Iterable<User> findAllByUsername(String username);
+    Page<User> findAllByUsername(String username,Pageable pageable);
 
-    Iterable<User> findAllByRoles(Set<Role> roles);
+    Page<User> findAllByRoles(Set<Role> roles,Pageable pageable);
 
-    Iterable<User> findAllById(Long id);
+    Page<User> findAllById(Long id,Pageable pageable);
 
 
 }
