@@ -1,4 +1,4 @@
-<#import "parts/common.ftl" as l>
+<#import "parts/login.ftl" as l>
 <html>
 <head>
     <link href="/styles/style.css" rel="stylesheet">
@@ -29,10 +29,10 @@
 <div id="left">
     ${message?ifExists}
     <form method="post" action="user/new">
-        <input type="text" name="username" placeholder="username"/>
+        <input type="text" name="userName" placeholder="userName"/>
         <input type="password" name="password" placeholder="password">
-        <input type="text" name="firstName" placeholder="firstname">
-        <input type="text" name="lastName" placeholder="lastname">
+        <input type="text" name="firstName" placeholder="firstName">
+        <input type="text" name="lastName" placeholder="lastName">
         <select name="status">
             <option>ACTIVE</option>
             <option>INACTIVE</option>
@@ -46,13 +46,13 @@
     </form>
 </div>
 
-<form method="post" action="byname">
+<form method="post" action="byName">
     <input type="text" name="name" placeholder="Имя для поиска">
     <input type="hidden" name="_csrf" value="${_csrf.token}"/>
     <button type="submit">Найти</button>
 </form>
 
-<form method="post" action="byrole">
+<form method="post" action="byRole">
     <select name="role">
         <option>ADMIN</option>
         <option>USER</option>
@@ -71,7 +71,7 @@
     <div style="border: black">Список пользователей:</div>
     <#list users as user>
         <div>
-            <span>${user.username}</span>
+            <span>${user.userName}</span>
             <i>${user.active}</i>
             <i>${user.roles}</i>
             <i>${user.createdAt}</i>

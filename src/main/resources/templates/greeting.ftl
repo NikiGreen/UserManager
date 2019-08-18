@@ -1,4 +1,4 @@
-<#import "parts/common.ftl" as l>
+<#import "parts/login.ftl" as l>
 <html>
 <head>
     <title>Getting Started: Serving Web Content</title>

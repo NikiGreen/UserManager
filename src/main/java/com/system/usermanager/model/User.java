@@ -1,6 +1,6 @@
 package com.system.usermanager.model;
 
-import com.system.usermanager.model.parametr.Role;
+import com.system.usermanager.model.param.Role;
 
 import javax.persistence.*;
 import java.util.Set;

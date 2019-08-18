@@ -1,4 +1,4 @@
-package com.system.usermanager.model.parametr;
+package com.system.usermanager.model.param;
 
 public enum Status {
     ACTIVE,

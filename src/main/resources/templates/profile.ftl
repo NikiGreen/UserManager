@@ -1,4 +1,4 @@
-<#import "parts/common.ftl" as l>
+<#import "parts/login.ftl" as l>
 <html>
 <head>
     <link href="/styles/style.css" rel="stylesheet">
@@ -29,8 +29,8 @@
     <form method="post" action="/user/${id}/edit">
         <input type="text" name="username" value=${username}>
         <input type="password" name="password" value=${password}>
-        <input type="text" name="firstName" value=${firstName}>
-        <input type="text" name="lastName" value=${lastName}>
+        <input type="text" name="firstname" value=${firstName}>
+        <input type="text" name="lastname" value=${lastName}>
         <input type="text" name="createdAt" value=${createdAt}>
         <select name="status">
             <option>ACTIVE</option>

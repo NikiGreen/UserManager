@@ -1,4 +1,4 @@
-<#import "parts/common.ftl" as l>
+<#import "parts/login.ftl" as l>
 <html>
 <head>
     <link href="/styles/style.css" rel="stylesheet">
@@ -27,8 +27,8 @@
 <div id="left">
         <div>
             <span>${username}</span>
-            <i>${firstName}</i>
-            <i>${lastName}</i>
+            <i>${firstname}</i>
+            <i>${lastname}</i>
             <i>${createdAt}</i>
         </div>
 </div>

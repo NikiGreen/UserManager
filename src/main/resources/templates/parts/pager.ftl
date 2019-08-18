@@ -17,7 +17,7 @@
     <div class="mt-3">
         <ul class="pagination">
             <li class="page-item disabled">
-                <a class="page-link" href="#" tabindex="-1">Страницы</a>
+                <b class="page-link" href="#" tabindex="-1">Страницы</b>
             </li>
             <#list body as p>
                 <#if (p - 1) == page.getNumber()>
@@ -38,7 +38,7 @@
 
         <ul class="pagination">
             <li class="page-item disabled">
-                <a class="page-link" href="#" tabindex="-1">Элементов на странице</a>
+                <b class="page-link" href="#" tabindex="-1">Элементов на странице</b>
             </li>
             <#list [5, 10, 25, 50] as c>
                 <#if c == page.getSize()>

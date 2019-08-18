@@ -13,3 +13,72 @@ input[type=submit],button {
     border-radius: 5px;
 }
 
+*{margin: 0px; padding: 0px}
+body {
+    font-family: 'Roboto', sans-serif;
+    display: flex;
+    flex-direction: column;
+    /*align-items: center;
+    justify-content: center;
+    align-content: center;*/
+    height: 100vh;
+}
+li {
+    list-style-type: none;
+}
+a:link, a:hover, a:visited {
+    text-decoration: none;
+    color: #000000;
+}
+.heading {
+    font-size: 1.6rem;
+    margin-bottom: 1.5rem;
+}
+.pagination {
+    display: flex;
+}
+.pagination-item {
+    margin-right: 18px;
+    border-radius: 10px;
+    border: solid 1px #ececec;
+}
+.pagination a,b {
+    padding: 11px 16px 11px 16px;
+    transition: .2s all;
+    display: flex;
+}
+ a:hover {
+    background-color: #ececec;
+}
+
+.pg-active {
+    background-color: #ececec;
+}
+
+
+
+
+ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+   /* background-color: #333;*/
+}
+
+li {
+    float: left;
+}
+
+#navbar a {
+    display: block;
+    color: white;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+}
+
+/* Change the link color to #111 (black) on hover */
+#navbar a:hover{
+    background-color: #111;
+}
