@@ -99,19 +99,19 @@
 
 
         <div class="card-columns" id="message-list">
-            <#list page.content as user>
+            <#list page.content as userAccount>
                 <div>
-                    <span>${user.username}</span>
-                    <i>${user.active?string('[ACTIVE]', '[INACTIVE]')}</i>
-                    <i><#list user.roles as role>${role}<#sep>, </#list></i>
-                    <i>${user.createdAt}</i>
-                    <form method="post" action="user/${user.id}">
+                    <span>${userAccount.username}</span>
+                    <i>${userAccount.active?string('[ACTIVE]', '[INACTIVE]')}</i>
+                    <i><#list userAccount.roles as role>${role}<#sep>, </#list></i>
+                    <i>${userAccount.createdAt}</i>
+                    <form method="post" action="user/${userAccount.id}">
                         <#-- <input type="hidden" name="id" value={{id}}>-->
                         <input type="hidden" name="_csrf" value="${_csrf.token}"/>
                         <button type="submit">Просмотр</button>
                     </form>
                     <#if sessionRole=="[ADMIN]">
-                        <form method="get" action="user/${user.id}/edit">
+                        <form method="get" action="user/${userAccount.id}/edit">
                             <input type="hidden" name="_csrf" value="${_csrf.token}"/>
                             <button type="submit">Изменить</button>
                         </form>

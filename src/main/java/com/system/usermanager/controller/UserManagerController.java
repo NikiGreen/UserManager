@@ -1,6 +1,6 @@
 package com.system.usermanager.controller;
 
-import com.system.usermanager.model.User;
+import com.system.usermanager.model.UserAccount;
 import com.system.usermanager.model.param.Role;
 import com.system.usermanager.service.UserMangerService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -45,7 +45,7 @@ public class UserManagerController {
     @GetMapping("/user")
     public String users(Model model, Authentication authentication,
                         @PageableDefault(sort = {"id"}, direction = Sort.Direction.DESC) Pageable pageable) {
-        Page<User> page = userManagerService.findAll(pageable);
+        Page<UserAccount> page = userManagerService.findAll(pageable);
         String sessionRole = String.valueOf(authentication.getAuthorities());
         model.addAttribute("page", page);
         model.addAttribute("url", "/user");
@@ -55,39 +55,39 @@ public class UserManagerController {
 
     @PostMapping("/user/{id}")
     public String info(@PathVariable(value = "id") String id, Map<String, Object> model) {
-        User user = userManagerService.findById(Long.valueOf(id)).orElse(new User());
-        model.put("username", user.getUsername());
-        model.put("firstname", user.getFirstName());
-        model.put("lastname", user.getLastName());
-        model.put("createdAt", user.getCreatedAt());
+        UserAccount userAccount = userManagerService.findById(Long.valueOf(id)).orElse(new UserAccount());
+        model.put("username", userAccount.getUsername());
+        model.put("firstname", userAccount.getFirstName());
+        model.put("lastname", userAccount.getLastName());
+        model.put("createdAt", userAccount.getCreatedAt());
         return "/profileInfo";
     }
 
     @GetMapping("/user/{id}/edit")
     public String getUserInfo(@PathVariable(value = "id") String id, Map<String, Object> model) {
-        User user = userManagerService.findById(Long.valueOf(id)).orElse(new User());
-        model.put("username", user.getUsername());
-        model.put("password", user.getPassword());
-        model.put("firstName", user.getFirstName());
-        model.put("lastName", user.getLastName());
-        model.put("createdAt", user.getCreatedAt());
+        UserAccount userAccount = userManagerService.findById(Long.valueOf(id)).orElse(new UserAccount());
+        model.put("username", userAccount.getUsername());
+        model.put("password", userAccount.getPassword());
+        model.put("firstName", userAccount.getFirstName());
+        model.put("lastName", userAccount.getLastName());
+        model.put("createdAt", userAccount.getCreatedAt());
         return "/profile";
     }
 
     @PostMapping("/user/{id}/edit")
-    public String edit(User user, @RequestParam String createdAt, @RequestParam String status, @RequestParam String role, @PathVariable("id") String id, Map<String, Object> model) {
+    public String edit(UserAccount userAccount, @RequestParam String createdAt, @RequestParam String status, @RequestParam String role, @PathVariable("id") String id, Map<String, Object> model) {
         /*userRepository.deleteById(user.getId());*/
         /*user.setActive(Collections.singleton(Status.valueOf(status)));*/
         if (USER_STATUS_ACTIVE.equals(status)) {
-            user.setActive(true);
+            userAccount.setActive(true);
         } else {
-            user.setActive(false);
+            userAccount.setActive(false);
         }
-        user.setPassword(passwordEncoder.encode(user.getPassword()));
-        user.setRoles(Collections.singleton(Role.valueOf(role)));
-        user.setCreatedAt(createdAt);
-        userManagerService.save(user);
-        Iterable<User> users = userManagerService.findAll();
+        userAccount.setPassword(passwordEncoder.encode(userAccount.getPassword()));
+        userAccount.setRoles(Collections.singleton(Role.valueOf(role)));
+        userAccount.setCreatedAt(createdAt);
+        userManagerService.save(userAccount);
+        Iterable<UserAccount> users = userManagerService.findAll();
         model.put("users", users);
         return "redirect:/user";
     }
@@ -95,7 +95,7 @@ public class UserManagerController {
     @PostMapping("byName")
     public String byName(@RequestParam String name, Authentication authentication, Model model,
                          @PageableDefault(sort = {"id"}, direction = Sort.Direction.DESC) Pageable pageable) {
-        Page<User> page;
+        Page<UserAccount> page;
         String sessionRole = String.valueOf(authentication.getAuthorities());
         if (!StringUtils.isEmpty(name)) {
             page = userManagerService.findAllByUsername(name, pageable);
@@ -117,7 +117,7 @@ public class UserManagerController {
     @PostMapping("byRole")
     public String byRole(@RequestParam String role, Authentication authentication, Model model,
                          @PageableDefault(sort = {"id"}, direction = Sort.Direction.DESC) Pageable pageable) {
-        Page<User> page;
+        Page<UserAccount> page;
         String sessionRole = String.valueOf(authentication.getAuthorities());
         if (!StringUtils.isEmpty(role)) {
             page = userManagerService.findAllByRoles(Collections.singleton(Role.valueOf(role)), pageable);
@@ -137,8 +137,7 @@ public class UserManagerController {
 
     @PostMapping("delete")
     public String delete(@RequestParam String name, Authentication authentication, Map<String, Object> model) {
-        Iterable<User> users;
-        String sessionRole = String.valueOf(authentication.getAuthorities());
+        Iterable<UserAccount> users;
         if (name != null && !name.isEmpty())
             userManagerService.removeAllByUsername(name);
         users = userManagerService.findAll();

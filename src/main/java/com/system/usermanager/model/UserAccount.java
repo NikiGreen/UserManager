@@ -1,47 +1,53 @@
 package com.system.usermanager.model;
 
 import com.system.usermanager.model.param.Role;
-import com.system.usermanager.model.param.Status;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import java.sql.Date;
+import javax.persistence.*;
+import java.util.Set;
 
 @Entity
+@Table(name = "usr")
 public class UserAccount {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Integer id;
-
-    private String userName;
-
+    private Long id;
+    private String username;
     private String password;
+
     private String firstName;
+    private String lastName;
 
-    private Role userRole;
-    private Status userStatus;
+    /*@ElementCollection(targetClass = Status.class, fetch = FetchType.EAGER)
+    @CollectionTable(name = "user_status", joinColumns = @JoinColumn(name = "user_id"))
+    @Enumerated(EnumType.STRING)
+    private Set<Status> active;*/
 
-    private Date createdAt;
+    private Boolean active;
+
+    @ElementCollection(targetClass = Role.class, fetch = FetchType.EAGER)
+    @CollectionTable(name = "user_role", joinColumns = @JoinColumn(name = "user_id"))
+    @Enumerated(EnumType.STRING)
+    private Set<Role> roles;
+
+    private String createdAt;
 
     public UserAccount() {
     }
 
-    public Integer getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
-    public String getUserName() {
-        return userName;
+    public String getUsername() {
+        return username;
     }
 
-    public void setUserName(String userName) {
-        this.userName = userName;
+    public void setUsername(String username) {
+        this.username = username;
     }
 
     public String getPassword() {
@@ -60,27 +66,43 @@ public class UserAccount {
         this.firstName = firstName;
     }
 
-    public Role getUserRole() {
-        return userRole;
+    public String getLastName() {
+        return lastName;
     }
 
-    public void setUserRole(Role userRole) {
-        this.userRole = userRole;
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+/*
+    public Set<Status> getActive() {
+        return active;
     }
 
-    public Status getUserStatus() {
-        return userStatus;
+    public void setActive(Set<Status> active) {
+        this.active = active;
+    }*/
+
+    public Boolean getActive() {
+        return active;
     }
 
-    public void setUserStatus(Status userStatus) {
-        this.userStatus = userStatus;
+    public void setActive(Boolean active) {
+        this.active = active;
     }
 
-    public Date getCreatedAt() {
+    public Set<Role> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(Set<Role> roles) {
+        this.roles = roles;
+    }
+
+    public String getCreatedAt() {
         return createdAt;
     }
 
-    public void setCreatedAt(Date createdAt) {
+    public void setCreatedAt(String createdAt) {
         this.createdAt = createdAt;
     }
 }

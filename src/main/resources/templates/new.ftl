@@ -69,18 +69,18 @@
 
 <div id="right" style="position: center">
     <div style="border: black">Список пользователей:</div>
-    <#list users as user>
+    <#list users as userAccount>
         <div>
-            <span>${user.userName}</span>
-            <i>${user.active}</i>
-            <i>${user.roles}</i>
-            <i>${user.createdAt}</i>
-            <form method="post" action="user/${user.id}">
+            <span>${userAccount.userName}</span>
+            <i>${userAccount.active}</i>
+            <i>${userAccount.roles}</i>
+            <i>${userAccount.createdAt}</i>
+            <form method="post" action="user/${userAccount.id}">
                 <!--<input type="hidden" name="id" value={{id}}>-->
                 <input type="hidden" name="_csrf" value="${_csrf.token}"/>
                 <button type="submit">Просмотр</button>
             </form>
-            <form method="get" action="user/${user.id}/edit">
+            <form method="get" action="user/${userAccount.id}/edit">
                 <!--<input type="hidden" name="id" value={{id}}>-->
                 <input type="hidden" name="_csrf" value="${_csrf.token}"/>
                 <button type="submit">Изменить</button>

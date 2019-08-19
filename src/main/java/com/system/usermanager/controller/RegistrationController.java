@@ -1,7 +1,7 @@
 package com.system.usermanager.controller;
 
 
-import com.system.usermanager.model.User;
+import com.system.usermanager.model.UserAccount;
 import com.system.usermanager.model.param.Role;
 import com.system.usermanager.service.UserMangerService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,40 +32,40 @@ public class RegistrationController {
     }
 
     @PostMapping("/registration")
-    public String addUser(User user, String firstName, String lastName, Map<String, Object> model) {
-        User userFromDb = userManagerService.findByUsername(user.getUsername());
-        if (userFromDb != null) {
+    public String addUser(UserAccount userAccount, String firstName, String lastName, Map<String, Object> model) {
+        UserAccount userAccountFromDb = userManagerService.findByUsername(userAccount.getUsername());
+        if (userAccountFromDb != null) {
             model.put("message", "User exists!");
             return "registration";
         }
-        user.setFirstName(firstName);
-        user.setLastName(lastName);
+        userAccount.setFirstName(firstName);
+        userAccount.setLastName(lastName);
         /*user.setActive(Collections.singleton(Status.ACTIVE));*/
-        user.setPassword(passwordEncoder.encode(user.getPassword()));
-        user.setActive(true);
-        user.setRoles(Collections.singleton(Role.USER));
-        user.setCreatedAt(new SimpleDateFormat("HH:mm:ss_dd.MM.yyyy").format(Calendar.getInstance().getTime()));
-        userManagerService.save(user);
+        userAccount.setPassword(passwordEncoder.encode(userAccount.getPassword()));
+        userAccount.setActive(true);
+        userAccount.setRoles(Collections.singleton(Role.USER));
+        userAccount.setCreatedAt(new SimpleDateFormat("HH:mm:ss_dd.MM.yyyy").format(Calendar.getInstance().getTime()));
+        userManagerService.save(userAccount);
         return "redirect:/login";
     }
 
     @PostMapping("/user/new")
-    public String peoples(User user, String firstName, String lastName, @RequestParam String status, @RequestParam String role, Map<String, Object> model) {
-        User userFromDb = userManagerService.findByUsername(user.getUsername());
-        if (userFromDb == null) {
-            user.setFirstName(firstName);
-            user.setLastName(lastName);
+    public String peoples(UserAccount userAccount, String firstName, String lastName, @RequestParam String status, @RequestParam String role, Map<String, Object> model) {
+        UserAccount userAccountFromDb = userManagerService.findByUsername(userAccount.getUsername());
+        if (userAccountFromDb == null) {
+            userAccount.setFirstName(firstName);
+            userAccount.setLastName(lastName);
             /*user.setActive(Collections.singleton(Status.valueOf(status)));*/
             if (USER_STATUS_ACTIVE.equals(status)) {
-                user.setActive(true);
+                userAccount.setActive(true);
             } else
-                user.setActive(false);
-            user.setPassword(passwordEncoder.encode(user.getPassword()));
-            user.setRoles(Collections.singleton(Role.valueOf(role)));
-            user.setCreatedAt(new SimpleDateFormat("HH:mm:ss_dd.MM.yyyy").format(Calendar.getInstance().getTime()));
-            userManagerService.save(user);
+                userAccount.setActive(false);
+            userAccount.setPassword(passwordEncoder.encode(userAccount.getPassword()));
+            userAccount.setRoles(Collections.singleton(Role.valueOf(role)));
+            userAccount.setCreatedAt(new SimpleDateFormat("HH:mm:ss_dd.MM.yyyy").format(Calendar.getInstance().getTime()));
+            userManagerService.save(userAccount);
         }
-        Iterable<User> users = userManagerService.findAll();
+        Iterable<UserAccount> users = userManagerService.findAll();
         model.put("users", users);
         return "redirect:/user";
     }

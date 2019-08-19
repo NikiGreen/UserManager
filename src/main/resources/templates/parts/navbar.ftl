@@ -17,27 +17,27 @@
             <li class="nav-item">
                 <a class="nav-link" href="/">Home</a>
             </li>-->
-<#--<#if user??>
+<#--<#if userAccount??>
     <li class="nav-item">
         <a class="nav-link" href="/main">Messages</a>
     </li>
     <li class="nav-item">
-        <a class="nav-link" href="/user-messages/${currentUserId}">My messages</a>
+        <a class="nav-link" href="/userAccount-messages/${currentUserId}">My messages</a>
     </li>
 </#if>
 <#if isAdmin>
     <li class="nav-item">
-        <a class="nav-link" href="/user">User list</a>
+        <a class="nav-link" href="/userAccount">User list</a>
     </li>
 </#if>
-<#if user??>
+<#if userAccount??>
     <li class="nav-item">
-        <a class="nav-link" href="/user/profile">Profile</a>
+        <a class="nav-link" href="/userAccount/profile">Profile</a>
     </li>
 </#if>-->
 <#-- </ul>
 
- &lt;#&ndash;<div class="navbar-text mr-3"><#if user??>${name}<#else>Please, login</#if></div>&ndash;&gt;
+ &lt;#&ndash;<div class="navbar-text mr-3"><#if userAccount??>${name}<#else>Please, login</#if></div>&ndash;&gt;
  <@l.logout />
 </div>
 </nav>-->

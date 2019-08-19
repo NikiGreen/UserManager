@@ -1,8 +1,8 @@
 package com.system.usermanager.service.impl;
 
-import com.system.usermanager.model.User;
+import com.system.usermanager.model.UserAccount;
 import com.system.usermanager.model.param.Role;
-import com.system.usermanager.repository.UserRepository;
+import com.system.usermanager.repository.UserAccountRepository;
 import com.system.usermanager.service.UserMangerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -16,45 +16,45 @@ import java.util.Set;
 public class UserManagerServiceImpl implements UserMangerService {
 
     @Autowired
-    private UserRepository userRepository;
+    private UserAccountRepository userAccountRepository;
 
     @Override
-    public Page<User> findAll(Pageable pageable) {
-        return userRepository.findAll(pageable);
+    public Page<UserAccount> findAll(Pageable pageable) {
+        return userAccountRepository.findAll(pageable);
     }
 
     @Override
-    public User findByUsername(String userName) {
-        return userRepository.findByUsername(userName);
+    public UserAccount findByUsername(String userName) {
+        return userAccountRepository.findByUsername(userName);
     }
 
     @Override
-    public Optional<User> findById(Long id) {
-        return userRepository.findById(id);
+    public Optional<UserAccount> findById(Long id) {
+        return userAccountRepository.findById(id);
     }
 
     @Override
-    public User save(User user) {
-        return userRepository.save(user);
+    public UserAccount save(UserAccount userAccount) {
+        return userAccountRepository.save(userAccount);
     }
 
     @Override
-    public Iterable<User> findAll() {
-        return userRepository.findAll();
+    public Iterable<UserAccount> findAll() {
+        return userAccountRepository.findAll();
     }
 
     @Override
-    public Page<User> findAllByUsername(String userName, Pageable pageable) {
-        return userRepository.findAllByUsername(userName, pageable);
+    public Page<UserAccount> findAllByUsername(String userName, Pageable pageable) {
+        return userAccountRepository.findAllByUsername(userName, pageable);
     }
 
     @Override
-    public Page<User> findAllByRoles(Set<Role> roles, Pageable pageable) {
-        return userRepository.findAllByRoles(roles, pageable);
+    public Page<UserAccount> findAllByRoles(Set<Role> roles, Pageable pageable) {
+        return userAccountRepository.findAllByRoles(roles, pageable);
     }
 
     @Override
     public void removeAllByUsername(String userName) {
-        userRepository.removeAllByUsername(userName);
+        userAccountRepository.removeAllByUsername(userName);
     }
 }
