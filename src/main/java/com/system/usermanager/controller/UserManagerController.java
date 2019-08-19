@@ -77,9 +77,7 @@ public class UserManagerController {
     }
 
     @PostMapping("/user/{id}/edit")
-    public String edit(UserAccount userAccount,@RequestParam String firstName,@RequestParam String lastName, @RequestParam String createdAt, @RequestParam String status, @RequestParam String role, @PathVariable("id") String id, Map<String, Object> model) {
-        /*userRepository.deleteById(user.getId());*/
-        /*user.setActive(Collections.singleton(Status.valueOf(status)));*/
+    public String edit(UserAccount userAccount, @RequestParam String firstName, @RequestParam String lastName, @RequestParam String createdAt, @RequestParam String status, @RequestParam String role, @PathVariable("id") String id, Map<String, Object> model) {
 
         userAccount.setFirstName(firstName);
         userAccount.setLastName(lastName);

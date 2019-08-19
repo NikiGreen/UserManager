@@ -1,3 +1,4 @@
+<#--
 <#import "parts/login.ftl" as l>
 <html>
 <head>
@@ -76,12 +77,12 @@
             <i>${userAccount.roles}</i>
             <i>${userAccount.createdAt}</i>
             <form method="post" action="user/${userAccount.id}">
-                <!--<input type="hidden" name="id" value={{id}}>-->
+                <!--<input type="hidden" name="id" value={{id}}>&ndash;&gt;
                 <input type="hidden" name="_csrf" value="${_csrf.token}"/>
                 <button type="submit">Просмотр</button>
             </form>
             <form method="get" action="user/${userAccount.id}/edit">
-                <!--<input type="hidden" name="id" value={{id}}>-->
+                <!--<input type="hidden" name="id" value={{id}}>&ndash;&gt;
                 <input type="hidden" name="_csrf" value="${_csrf.token}"/>
                 <button type="submit">Изменить</button>
             </form>
@@ -90,4 +91,4 @@
 </div>
 
 </body>
-</html>
+</html>-->

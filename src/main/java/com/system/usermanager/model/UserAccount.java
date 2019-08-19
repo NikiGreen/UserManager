@@ -20,11 +20,6 @@ public class UserAccount implements UserDetails {
     private String firstName;
     private String lastName;
 
-    /*@ElementCollection(targetClass = Status.class, fetch = FetchType.EAGER)
-    @CollectionTable(name = "user_status", joinColumns = @JoinColumn(name = "user_id"))
-    @Enumerated(EnumType.STRING)
-    private Set<Status> active;*/
-
     private Boolean active;
 
     @ElementCollection(targetClass = Role.class, fetch = FetchType.EAGER)
@@ -44,8 +39,6 @@ public class UserAccount implements UserDetails {
     public boolean isActive() {
         return active;
     }
-
-
 
 
     public Long getId() {
@@ -112,14 +105,6 @@ public class UserAccount implements UserDetails {
     public void setLastName(String lastName) {
         this.lastName = lastName;
     }
-/*
-    public Set<Status> getActive() {
-        return active;
-    }
-
-    public void setActive(Set<Status> active) {
-        this.active = active;
-    }*/
 
     public Boolean getActive() {
         return active;

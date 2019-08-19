@@ -40,7 +40,6 @@ public class RegistrationController {
         }
         userAccount.setFirstName(firstName);
         userAccount.setLastName(lastName);
-        /*user.setActive(Collections.singleton(Status.ACTIVE));*/
         userAccount.setPassword(passwordEncoder.encode(userAccount.getPassword()));
         userAccount.setActive(true);
         userAccount.setRoles(Collections.singleton(Role.USER));
@@ -55,7 +54,6 @@ public class RegistrationController {
         if (userAccountFromDb == null) {
             userAccount.setFirstName(firstName);
             userAccount.setLastName(lastName);
-            /*user.setActive(Collections.singleton(Status.valueOf(status)));*/
             if (USER_STATUS_ACTIVE.equals(status)) {
                 userAccount.setActive(true);
             } else
