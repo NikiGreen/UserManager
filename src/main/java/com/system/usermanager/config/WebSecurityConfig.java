@@ -17,8 +17,8 @@ import javax.sql.DataSource;
 @EnableWebSecurity
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
-    private static final String SELECT_USER_BY_USERNAME="SELECT username, password, active FROM usr WHERE username=?";
-    private static final String SELECT_AUTHORITIES_BY_USERNAME="SELECT u.username, ur.roles FROM usr u INNER JOIN user_role ur on u.id = ur.user_id WHERE u.username=?";
+    private static final String SELECT_USER_BY_USERNAME = "SELECT username, password, active FROM usr WHERE username=?";
+    private static final String SELECT_AUTHORITIES_BY_USERNAME = "SELECT u.username, ur.roles FROM usr u INNER JOIN user_role ur on u.id = ur.user_id WHERE u.username=?";
 
     @Qualifier("dataSource")
     @Autowired
@@ -31,16 +31,16 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/user/new").hasAuthority(String.valueOf(Role.ADMIN))
                 .antMatchers("/user/{id}/edit").hasAuthority(String.valueOf(Role.ADMIN))
                 .antMatchers("/delete").hasAuthority(String.valueOf(Role.ADMIN))
-                    .antMatchers("/", "/registration").permitAll()
-                    .anyRequest().authenticated()
+                .antMatchers("/", "/registration").permitAll()
+                .anyRequest().authenticated()
 
                 .and()
-                    .formLogin()
-                    .loginPage("/login")
-                    .permitAll()
+                .formLogin()
+                .loginPage("/login")
+                .permitAll()
                 .and()
-                    .logout()
-                    .permitAll();
+                .logout()
+                .permitAll();
                 /*.and()
                     .httpBasic().
                 and()
@@ -49,17 +49,15 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     }
 
     @Override
-    public void configure (WebSecurity web)  {
-        web.ignoring(). antMatchers ("/css/** ", "/js/ **","/styles/**","/background/**");
+    public void configure(WebSecurity web) {
+        web.ignoring().antMatchers("/css/** ", "/js/ **", "/styles/**", "/background/**");
     }
-
 
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         auth.jdbcAuthentication()
                 .dataSource(dataSource)
-                /*.passwordEncoder(NoOpPasswordEncoder.getInstance())*/
                 .passwordEncoder(new BCryptPasswordEncoder())
                 .usersByUsernameQuery(SELECT_USER_BY_USERNAME)
                 .authoritiesByUsernameQuery(SELECT_AUTHORITIES_BY_USERNAME);

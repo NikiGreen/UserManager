@@ -19,7 +19,7 @@ import java.util.Map;
 @Controller
 public class RegistrationController {
 
-    public static final String USER_STATUS_ACTIVE= "ACTIVE";
+    public static final String USER_STATUS_ACTIVE = "ACTIVE";
 
     @Autowired
     private UserMangerService userManagerService;

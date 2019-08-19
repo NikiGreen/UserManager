@@ -4,7 +4,6 @@ import com.system.usermanager.model.UserAccount;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 
-
-public interface UserAccountRepository extends JpaRepository<UserAccount,Long> {
+public interface UserAccountRepository extends JpaRepository<UserAccount, Long> {
     UserAccount findByFirstName(String name);
 }

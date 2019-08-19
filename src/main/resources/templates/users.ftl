@@ -112,7 +112,6 @@
                     </form>
                     <#if sessionRole=="[ADMIN]">
                         <form method="get" action="user/${user.id}/edit">
-                            <!--<input type="hidden" name="id" value={{id}}>-->
                             <input type="hidden" name="_csrf" value="${_csrf.token}"/>
                             <button type="submit">Изменить</button>
                         </form>

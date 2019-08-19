@@ -25,12 +25,12 @@
 
 
 <div id="left">
-        <div>
-            <span>${username}</span>
-            <i>${firstname}</i>
-            <i>${lastname}</i>
-            <i>${createdAt}</i>
-        </div>
+    <div>
+        <span>${username}</span>
+        <i>${firstname}</i>
+        <i>${lastname}</i>
+        <i>${createdAt}</i>
+    </div>
 </div>
 
 </body>

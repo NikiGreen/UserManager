@@ -16,7 +16,7 @@
     }
 </style>
 <div>
-   <@l.logout/>
+    <@l.logout/>
 </div>
 <div id="left">
     <div>Добро пожаловать</div>

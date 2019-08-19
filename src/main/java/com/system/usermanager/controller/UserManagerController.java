@@ -24,7 +24,7 @@ import java.util.Map;
 @Controller
 public class UserManagerController {
 
-    public static final String USER_STATUS_ACTIVE= "ACTIVE";
+    public static final String USER_STATUS_ACTIVE = "ACTIVE";
 
     @Autowired
     private UserMangerService userManagerService;
@@ -93,7 +93,7 @@ public class UserManagerController {
     }
 
     @PostMapping("byName")
-    public String byName(@RequestParam String name, Authentication authentication,Model model,
+    public String byName(@RequestParam String name, Authentication authentication, Model model,
                          @PageableDefault(sort = {"id"}, direction = Sort.Direction.DESC) Pageable pageable) {
         Page<User> page;
         String sessionRole = String.valueOf(authentication.getAuthorities());
@@ -115,7 +115,7 @@ public class UserManagerController {
     }
 
     @PostMapping("byRole")
-    public String byRole(@RequestParam String role,Authentication authentication, Model model,
+    public String byRole(@RequestParam String role, Authentication authentication, Model model,
                          @PageableDefault(sort = {"id"}, direction = Sort.Direction.DESC) Pageable pageable) {
         Page<User> page;
         String sessionRole = String.valueOf(authentication.getAuthorities());
@@ -136,7 +136,7 @@ public class UserManagerController {
     }
 
     @PostMapping("delete")
-    public String delete(@RequestParam String name,Authentication authentication, Map<String, Object> model) {
+    public String delete(@RequestParam String name, Authentication authentication, Map<String, Object> model) {
         Iterable<User> users;
         String sessionRole = String.valueOf(authentication.getAuthorities());
         if (name != null && !name.isEmpty())
