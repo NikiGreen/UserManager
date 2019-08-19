@@ -44,10 +44,10 @@
     <div id="left">
         <#-- ${message}-->
         <form method="post" action="user/new">
-            <input type="text" name="username" placeholder="username"/>
-            <input type="password" name="password" placeholder="password">
-            <input type="text" name="firstName" placeholder="firstname">
-            <input type="text" name="lastName" placeholder="lastname">
+            <input type="text" name="username" placeholder="username" minlength="3" maxlength="16" required pattern="^[a-zA-Z]+$">
+            <input type="password" name="password" placeholder="password" minlength="3" maxlength="16" required pattern="^(?=.*[0-9]+.*)(?=.*[a-zA-Z]+.*)[0-9a-zA-Z]{3,16}$">
+            <input type="text" name="firstName" placeholder="firstname" minlength="1" maxlength="16" required pattern="^[a-zA-Z]+$">
+            <input type="text" name="lastName" placeholder="lastname" minlength="1" maxlength="16" required pattern="^[a-zA-Z]+$">
             <select name="status">
                 <option>ACTIVE</option>
                 <option>INACTIVE</option>
