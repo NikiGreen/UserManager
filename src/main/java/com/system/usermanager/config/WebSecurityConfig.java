@@ -16,6 +16,10 @@ import javax.sql.DataSource;
 @Configuration
 @EnableWebSecurity
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
+
+    private static final String SELECT_USER_BY_USERNAME="SELECT username, password, active FROM usr WHERE username=?";
+    private static final String SELECT_AUTHORITIES_BY_USERNAME="SELECT u.username, ur.roles FROM usr u INNER JOIN user_role ur on u.id = ur.user_id WHERE u.username=?";
+
     @Qualifier("dataSource")
     @Autowired
     private DataSource dataSource;
@@ -57,7 +61,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .dataSource(dataSource)
                 /*.passwordEncoder(NoOpPasswordEncoder.getInstance())*/
                 .passwordEncoder(new BCryptPasswordEncoder())
-                .usersByUsernameQuery("select username, password, active from usr where username=?")
-                .authoritiesByUsernameQuery("select u.username, ur.roles from usr u inner join user_role ur on u.id = ur.user_id where u.username=?");
+                .usersByUsernameQuery(SELECT_USER_BY_USERNAME)
+                .authoritiesByUsernameQuery(SELECT_AUTHORITIES_BY_USERNAME);
     }
 }
