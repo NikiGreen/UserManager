@@ -1,26 +1,8 @@
-<#import "parts/login.ftl" as l>
-<html>
-<head>
-    <title>Getting Started: Serving Web Content</title>
-    <!--<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>-->
-    <link href="/styles/style.css" rel="stylesheet">
-</head>
-<body>
-<style>
-    div {
-        position: center;
-    }
+<#import "parts/common.ftl" as c>
 
-    #left {
-        text-align: center; /* Выравниваем по центру */
-    }
-</style>
-<div>
-    <@l.logout/>
-</div>
+<@c.page>
 <div id="left">
-    <div>Добро пожаловать</div>
-    <a href="/user">Перейти к списку пользователей</a>
+    <div><h2 style="text-align: center">Добро пожаловать</h2></div>
 </div>
-</body>
-</html>
+</@c.page>
+

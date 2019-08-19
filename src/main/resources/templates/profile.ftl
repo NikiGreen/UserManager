@@ -1,29 +1,6 @@
-<#import "parts/login.ftl" as l>
-<html>
-<head>
-    <link href="/styles/style.css" rel="stylesheet">
-</head>
+<#import "parts/common.ftl" as c>
 
-<body>
-<style>
-    #left {
-        float: left;
-        clear: both;
-    }
-
-    #right {
-        text-align: center; /* Выравниваем по центру */
-        clear: both;
-
-    }
-
-</style>
-<div>
-    <@l.logout/>
-    <a href="/user">Перейти к списку пользователей</a>
-</div>
-
-
+<@c.page>
 <div id="left">
     Пользователь:<b>${username}</b>
     <form method="post" action="/user/${id}/edit">
@@ -48,6 +25,5 @@
         <button type="submit">Изменить</button>
     </form>
 </div>
+</@c.page>
 
-</body>
-</html>

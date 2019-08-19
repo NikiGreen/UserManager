@@ -1,19 +1,5 @@
-<#import "parts/login.ftl" as l>
 <#import "parts/pager.ftl" as p>
 <#import "parts/common.ftl" as c>
-
-
-<#--<html>
-<head>
-    <link href="/styles/style.css" rel="stylesheet">
-    &lt;#&ndash;<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
-    <!-- Bootstrap CSS &ndash;&gt;
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-
-&ndash;&gt;
-</head>
-<body>-->
 
 <style>
     form {
@@ -33,16 +19,10 @@
 
 </style>
 <@c.page>
-<#--<div>
-    <@l.logout/>
-</div>-->
-<#--
-    <@p.pager url page/>
--->
 
     <#if sessionRole=="[ADMIN]">
         <div id="left">
-            <#-- ${message}-->
+
             <form method="post" action="user/new">
                 <input type="text" name="username" placeholder="username" minlength="3" maxlength="16" required
                        pattern="^[a-zA-Z]+$">
@@ -90,7 +70,7 @@
     </#if>
 
     <form method="get" action="/user">
-        <button type="submit">Сбросить поиск</button>
+        <button type="submit">Сбросить настройки</button>
     </form>
 
     <@p.pager url page/>
@@ -106,7 +86,6 @@
                     <i><#list userAccount.roles as role>${role}<#sep>, </#list></i>
                     <i>${userAccount.createdAt}</i>
                     <form method="post" action="user/${userAccount.id}">
-                        <#-- <input type="hidden" name="id" value={{id}}>-->
                         <input type="hidden" name="_csrf" value="${_csrf.token}"/>
                         <button type="submit">Просмотр</button>
                     </form>
@@ -123,5 +102,4 @@
         </div>
     </div>
 </@c.page>
-<#--</body>
-</html>-->
+

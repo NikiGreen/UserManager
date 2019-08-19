@@ -38,6 +38,16 @@ public class UserManagerController {
         return "/greeting";
     }
 
+    @GetMapping("/contact")
+    public String contact(Map<String, Object> model) {
+        return "/contact";
+    }
+
+    @GetMapping("/about")
+    public String about(Map<String, Object> model) {
+        return "/about";
+    }
+
     @GetMapping("/login")
     public String login(Map<String, Object> model) {
         return "/login";
