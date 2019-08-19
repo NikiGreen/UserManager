@@ -1,4 +1,4 @@
-<#import "parts/common.ftl" as c>
+<#import "parts/main.ftl" as c>
 
 <@c.page>
 <div id="left">
