@@ -31,9 +31,9 @@
                pattern="^[a-zA-Z]+$">
         <input type="password" name="password" value=${password} minlength="3" maxlength="16" required
                pattern="^(?=.*[0-9]+.*)(?=.*[a-zA-Z]+.*)[0-9a-zA-Z]{3,16}$">
-        <input type="text" name="firstname" value=${firstName} minlength="1" maxlength="16" required
+        <input type="text" name="firstName" value=${firstName} minlength="1" maxlength="16" required
                pattern="^[a-zA-Z]+$">
-        <input type="text" name="lastname" value=${lastName} minlength="1" maxlength="16" required
+        <input type="text" name="lastName" value=${lastName} minlength="1" maxlength="16" required
                pattern="^[a-zA-Z]+$">
         <input type="text" name="createdAt" value=${createdAt}>
         <select name="status">

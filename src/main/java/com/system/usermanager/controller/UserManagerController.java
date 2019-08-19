@@ -9,6 +9,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -57,8 +58,8 @@ public class UserManagerController {
     public String info(@PathVariable(value = "id") String id, Map<String, Object> model) {
         UserAccount userAccount = userManagerService.findById(Long.valueOf(id)).orElse(new UserAccount());
         model.put("username", userAccount.getUsername());
-        model.put("firstname", userAccount.getFirstName());
-        model.put("lastname", userAccount.getLastName());
+        model.put("firstName", userAccount.getFirstName());
+        model.put("lastName", userAccount.getLastName());
         model.put("createdAt", userAccount.getCreatedAt());
         return "/profileInfo";
     }
@@ -66,6 +67,7 @@ public class UserManagerController {
     @GetMapping("/user/{id}/edit")
     public String getUserInfo(@PathVariable(value = "id") String id, Map<String, Object> model) {
         UserAccount userAccount = userManagerService.findById(Long.valueOf(id)).orElse(new UserAccount());
+        model.put("id", userAccount.getId());
         model.put("username", userAccount.getUsername());
         model.put("password", userAccount.getPassword());
         model.put("firstName", userAccount.getFirstName());
@@ -75,9 +77,12 @@ public class UserManagerController {
     }
 
     @PostMapping("/user/{id}/edit")
-    public String edit(UserAccount userAccount, @RequestParam String createdAt, @RequestParam String status, @RequestParam String role, @PathVariable("id") String id, Map<String, Object> model) {
+    public String edit(UserAccount userAccount,@RequestParam String firstName,@RequestParam String lastName, @RequestParam String createdAt, @RequestParam String status, @RequestParam String role, @PathVariable("id") String id, Map<String, Object> model) {
         /*userRepository.deleteById(user.getId());*/
         /*user.setActive(Collections.singleton(Status.valueOf(status)));*/
+
+        userAccount.setFirstName(firstName);
+        userAccount.setLastName(lastName);
         if (USER_STATUS_ACTIVE.equals(status)) {
             userAccount.setActive(true);
         } else {

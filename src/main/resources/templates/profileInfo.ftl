@@ -27,8 +27,8 @@
 <div id="left">
     <div>
         <span>${username}</span>
-        <i>${firstname}</i>
-        <i>${lastname}</i>
+        <i>${firstName}</i>
+        <i>${lastName}</i>
         <i>${createdAt}</i>
     </div>
 </div>
