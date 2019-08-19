@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-    <title>Spring Security Example </title>
     <link href="/styles/style.css" rel="stylesheet">
 </head>
 <body>
